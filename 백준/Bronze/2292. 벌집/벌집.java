@@ -1,27 +1,24 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int room = 1;
-        int i = 2;
-        int k = 0;
-        int t = 1;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        while(t!=0){
-            if (N==1) break;
+        int N = Integer.parseInt(br.readLine());
+        int count = 1;
+        int k = 2;
 
-            else if (N>=i && N<=(i+5+6*k)) {
-                room++;
-                break;
+        if (N==1)
+            System.out.println(1);
+
+        else{
+            while(k<=N){
+                k = k + 6*count;
+                count++;
             }
-
-            else{
-                i= i+5+6*k+1;
-                room++;
-                k++;
-            }
+            System.out.println(count);
         }
-        System.out.println(room);
     }
 }
