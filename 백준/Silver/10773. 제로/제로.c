@@ -1,38 +1,32 @@
+//3번 문제
 #include <stdio.h>
-#define SIZE 100000
-int stack[SIZE];
-int top =-1;
 
-// push&pop 함수
-void push(int data){
-    top++;
-    stack[top] = data;
-}
+#define MAX_SIZE 100000
 
-void pop(){
-    stack[top] = 0;
-    top--;
-}
-
+int stack[MAX_SIZE];
+int top = -1; 
 int main() {
-    int K, i, data;
-    scanf("%d",&K);
+    int K;
+    scanf("%d", &K);
 
-    for(i=0;i<K;i++) {
-        scanf("%d",&data);
+    for (int i = 0; i < K; i++) {
+        int num;
+        scanf("%d", &num);
 
-        if (data==0)
-            pop();
-
-        else
-            push(data);
+        if (num == 0) {
+            top--;
+        } else {
+            stack[++top] = num; 
+        }
     }
 
-    int sum=0;
-
-    for (i=0;i<=top;i++){
-        sum+= stack[i];
+    int sum = 0;
+   
+    for (int i = 0; i <= top; i++) {
+        sum += stack[i];
     }
-    printf("%d",sum);
+
+    printf("%d\n", sum);
+
     return 0;
 }
