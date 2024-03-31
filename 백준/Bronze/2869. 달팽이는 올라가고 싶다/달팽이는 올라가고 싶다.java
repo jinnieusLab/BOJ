@@ -14,16 +14,13 @@ public class Main {
         V = Integer.parseInt(st.nextToken());
 
         int day;
+        day = (V-B)/(A-B);
 
-        // 나머지가 없을 시-> 달팽이가 정상에 오르는 날의 전날
-        // 나머지가 있을 시-> 달팽이가 정상에 오르는 날의 전전날
-        day = (V-A)/(A-B);
-
-        // 나머지가 있으면 총 2일을 더해주어야 함
-        if ((V-A)%(A-B) != 0)
+        // 나머지가 있으면 1일을 한 번 더 더해주어야 함
+        if ((V-B)%(A-B) != 0)
             day++;
 
         // 나머지가 없다면 다음날이 바로 정상에 오르는 날이므로 1일만 더해주면 됨
-        System.out.println(day+1);
+        System.out.println(day);
     }
 }
