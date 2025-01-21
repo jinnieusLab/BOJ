@@ -8,21 +8,16 @@ public class Main {
         int L = Integer.parseInt(br.readLine());
         String str = br.readLine();
 
-        int sum = 0;
-        int i = 0;
-        int r = 1;
+        final long mod = 1234567891;
+        long sum = 0L;
+        long r = 1L;
 
-        for (char alphabet : str.toCharArray()) {
-            int alphabetInt = (int)alphabet - 96;
-
-            if (i != 0)
-                r *= 31;
-
-            sum += alphabetInt * r;
-
-            i++;
+        for (int i=0; i<L; i++) {
+            int alphabetInt = str.charAt(i) - 'a' + 1;
+            sum = (sum + alphabetInt * r) % mod;
+            r = (r * 31) % mod;
         }
 
-        System.out.println(sum % 1234567891);
+        System.out.println(sum);
     }
 }
