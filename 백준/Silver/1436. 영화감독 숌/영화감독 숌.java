@@ -15,21 +15,15 @@ public class Main {
 
         while (i < N) {
             String num_string = Long.toString(num);
-            char[] num_char = num_string.toCharArray();
 
-            for (int j = 0; j+2 < num_char.length; j++) {
-                if (num_char[j] == '6')
-                    if(num_char[j+1] == '6')
-                        if(num_char[j+2] == '6'){
-                            arr[i] = num;
-                            i++;
-                            break;
-                        }
+            if(num_string.contains("666")){
+                arr[i] = num;
+                i++;
             }
-
+                
             num++;
         }
 
-        System.out.println(arr[N-1]);
+        System.out.println(arr[N - 1]);
     }
 }
