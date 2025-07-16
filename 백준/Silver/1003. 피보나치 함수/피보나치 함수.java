@@ -1,35 +1,35 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.io.*;
 
 public class Main {
+    static int[][] memo = new int[41][2];
+
+    public static int[] fibonacci(int n) {
+        if (n == 0) {
+            memo[0][0] = 1;
+            memo[0][1] = 0;
+        } else if (n == 1) {
+            memo[1][0] = 0;
+            memo[1][1] = 1;
+        } else if (memo[n][0] == 0 && memo[n][1] == 0) {
+            int[] fib1 = fibonacci(n - 1);
+            int[] fib2 = fibonacci(n - 2);
+            memo[n][0] = fib1[0] + fib2[0];
+            memo[n][1] = fib1[1] + fib2[1];
+        }
+        return memo[n];
+    }
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int T = Integer.parseInt(br.readLine());
-        int [][]arr = new int[41][2];
-
-        arr[0][0] = 1;
-        arr[0][1] = 0;
-        arr[1][0] = 0;
-        arr[1][1] = 1;
-
-        for (int i = 2; i <= 40; i++) {
-            arr[i][0] = arr[i-1][0] + arr[i-2][0];
-            arr[i][1] = arr[i-1][1] + arr[i-2][1];
-        }
-
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < T; i++)
-            sb.append(br.readLine()).append(" ");
-
-        StringTokenizer st = new StringTokenizer(sb.toString());
-
-        for (int i = 0; i < T; i++) {
-            int n = Integer.parseInt(st.nextToken());
-            System.out.println(arr[n][0] + " " + arr[n][1]);
+        while (T-- > 0) {
+            int n = Integer.parseInt(br.readLine());
+            int[] result = fibonacci(n);
+            sb.append(result[0]).append(" ").append(result[1]).append("\n");
         }
+
+        System.out.print(sb);
     }
 }
