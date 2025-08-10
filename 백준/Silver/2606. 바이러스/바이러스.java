@@ -29,28 +29,18 @@ public class Main {
         }
 
         checked = new boolean[total+1];
-        bfs();
-
+        dfs(1);
         System.out.println(count);
     }
 
-    // 큐
-    static void bfs() {
-        Queue<Integer> queue = new LinkedList<>();
+    // 재귀
+    static void dfs(int v) {
+        checked[v] = true;
 
-        // 1번 연결된 그래프만 탐색
-        queue.add(1);
-        checked[1] = true;
-
-        while(!queue.isEmpty()) {
-            int v = queue.poll();
-
-            for (int node : graph[v]) {
-                if(!checked[node]) {
-                    checked[node] = true;
-                    queue.add(node);
-                    count++;
-                }
+        for (int node : graph[v]) {
+            if (!checked[node]) {
+                count++;
+                dfs(node);
             }
         }
     }
