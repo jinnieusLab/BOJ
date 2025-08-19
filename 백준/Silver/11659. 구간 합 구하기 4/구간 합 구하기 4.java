@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 
 public class Main {
     static int[] numbers;
-    static int[] accumulated;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -14,7 +13,6 @@ public class Main {
         int M = Integer.parseInt(lineFirst.nextToken());
 
         numbers = new int[N+1];
-        accumulated = new int[N+1];
 
         StringTokenizer numbersInput = new StringTokenizer(br.readLine());
         for (int i = 1; i <= N; i++) {
@@ -34,15 +32,14 @@ public class Main {
         System.out.print(result);
     }
 
-//    // 누적합 먼저 구하기
-    static int accumulate(int j) {
-        if (j == 1)
-            return accumulated[1] = numbers[1];
-
-        else return accumulated[j] = numbers[j] + accumulate(j-1);
+//    bottom-up
+    static void accumulate(int j) {
+        for (int i = 1; i <= j; i++) {
+            numbers[i] = numbers[i] + numbers[i-1];
+        }
     }
 
     static int rangeSum(int i, int j) {
-        return accumulated[j] - accumulated[i-1];
+        return numbers[j] - numbers[i-1];
     }
 }
