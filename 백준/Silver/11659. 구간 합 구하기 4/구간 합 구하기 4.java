@@ -34,11 +34,12 @@ public class Main {
         System.out.print(result);
     }
 
-    // bottom-up
-    static void accumulate(int j) {
-        for (int i = 1; i <= j; i++) {
-            accumulated[i] = numbers[i] + accumulated[i-1];
-        }
+//    // 누적합 먼저 구하기
+    static int accumulate(int j) {
+        if (j == 1)
+            return accumulated[1] = numbers[1];
+
+        else return accumulated[j] = numbers[j] + accumulate(j-1);
     }
 
     static int rangeSum(int i, int j) {
