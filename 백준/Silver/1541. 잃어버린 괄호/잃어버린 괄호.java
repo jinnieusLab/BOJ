@@ -1,68 +1,29 @@
-import java.util.Scanner;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String input = sc.next();
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String s = br.readLine().trim();
 
-        // 피연산자 (숫자)
-        StringBuilder num = new StringBuilder();
-        // - 합계
-        boolean minus = false;
         int sum = 0;
-        int i = 0;
+        int num = 0;
+        boolean minus = false; // 한 번이라도 '-'가 등장했는가
 
-        // 현재 연산자
-        for (char c: input.toCharArray()) {
-            i++;
-            // A+B..
-            if (c == '+') {
-                // 괄호로 묶어 연산
-                if (minus) {
-                    sum -= Integer.parseInt(num.toString());
-                    // num 초기화
-                    num.delete(0, num.length());
-                }
+        for (int k = 0; k < s.length(); k++) {
+            char c = s.charAt(k);
 
-                else {
-                    sum+= Integer.parseInt(num.toString());
-                    // num 초기화
-                    num.delete(0, num.length());
-                }
-            }
-
-            // -
-            else if (c == '-') {
-                // - 처음 등장
-                if (i==1) {
-                    minus = true;
-                }
-
-                if (minus && i!=1) {
-                    sum -= Integer.parseInt(num.toString());
-                    // num 초기화
-                    num.delete(0, num.length());
-                }
-
-                // 이전까지 +였다면
-                if (!minus) {
-                    sum += Integer.parseInt(num.toString());
-                    // num 초기화
-                    num.delete(0, num.length());
-                    minus = true;
-                }
-            }
-
-            else {
-                num.append(c);
+						// 정수 누적식
+            if (c >= '0' && c <= '9') {
+                num = num * 10 + (c - '0');
+            } else { // '+' or '-'
+                sum += minus ? -num : num; // 지금까지의 숫자 반영
+                num = 0; // 숫자 초기화 (다음 숫자 위해)
+                if (c == '-') minus = true; // 이후 숫자들은 전부 뺀다
             }
         }
 
-        // 마지막 피연산자 계산
-        if (minus)
-            sum -= Integer.parseInt(num.toString());
-
-        else sum += Integer.parseInt(num.toString());
+        // 마지막 숫자 반영
+        sum += minus ? -num : num;
 
         System.out.println(sum);
     }
